@@ -15,7 +15,7 @@ const Edit = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       const response = await axios.get(
-        `http://localhost:8080/api/v1/product/${id}`
+        `https://mern-one-backend.herokuapp.com/api/v1/product/${id}`
       );
       //
       try {
@@ -46,7 +46,7 @@ const Edit = () => {
     try {
       await axios({
         method: "put",
-        url: `http://localhost:8080/api/v1/product/${id}`,
+        url: `https://mern-one-backend.herokuapp.com/api/v1/product/${id}`,
         data: productFormData,
       });
       history.push("/");

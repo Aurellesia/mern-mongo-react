@@ -9,7 +9,9 @@ const Home = () => {
 
   useEffect(() => {
     const fetchProduct = async () => {
-      const response = await axios.get(`http://localhost:8080/api/v1/product`);
+      const response = await axios.get(
+        `https://mern-one-backend.herokuapp.com/api/v1/product`
+      );
       const result = await response.data;
       try {
         setProduct(result);
@@ -25,7 +27,7 @@ const Home = () => {
     try {
       await axios({
         method: "delete",
-        url: `http://localhost:8080/api/v1/product/${id}`,
+        url: `https://mern-one-backend.herokuapp.com/api/v1/product/${id}`,
       });
       window.location.reload();
     } catch (e) {

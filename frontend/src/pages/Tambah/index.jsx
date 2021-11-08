@@ -25,7 +25,7 @@ const Tambah = () => {
     try {
       await axios({
         method: "post",
-        url: `http://localhost:8080/api/v1/product`,
+        url: `https://mern-one-backend.herokuapp.com/api/v1/product`,
         data: productFormData,
       });
 

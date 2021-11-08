@@ -11,7 +11,7 @@ const Detail = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       const response = await axios.get(
-        `http://localhost:8080/api/v1/product/${id}`
+        `https://mern-one-backend.herokuapp.com/api/v1/product/${id}`
       );
       try {
         setProduct(response.data);
