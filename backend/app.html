@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .table1 {
+      font-family: sans-serif;
+      color: #232323;
+      border-collapse: collapse;
+    }
+
+    .table1,
+    th,
+    td {
+      border: 1px solid #999;
+      padding: 8px 20px;
+    }
+  </style>
+  <body>
+    <table border="1" class="table1">
+      <thead>
+        <tr>
+          <th>Connection</th>
+          <th>Method</th>
+          <th>URL</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="5">Mongodb</td>
+          <td>GET</td>
+          <td>/api/v1/product</td>
+          <td>List all products</td>
+        </tr>
+        <tr>
+          <td>GET</td>
+          <td>/api/v1/product/{id}</td>
+          <td>View a product</td>
+        </tr>
+        <tr>
+          <td>POST</td>
+          <td>/api/v1/product</td>
+          <td>Create new product</td>
+        </tr>
+        <tr>
+          <td>PUT</td>
+          <td>/api/v1/product/{id}</td>
+          <td>Update a product</td>
+        </tr>
+        <tr>
+          <td>DELETE</td>
+          <td>/api/v1/product/{id}</td>
+          <td>Delete a product</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

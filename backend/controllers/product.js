@@ -40,7 +40,7 @@ const store = async (req, res) => {
       price,
       stock,
       status,
-      image_url: `${process.env.URL}/static/${image.originalname}`,
+      image_url: `https://mern-one-backend.herokuapp.com/static/${image.originalname}`,
     });
     const result = await data.save();
     res.send(result);
@@ -65,7 +65,7 @@ const update = async (req, res) => {
           price,
           stock,
           status,
-          image_url: `${process.env.URL}/static/${image.originalname}`,
+          image_url: `https://mern-one-backend.herokuapp.com/static/${image.originalname}`,
         }
       );
       res.send(result);
