@@ -2,10 +2,12 @@ import { Link } from "react-router-dom";
 import "./index.scss";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import useDebounce from "../../utils/useDebounce";
 
 const Home = () => {
   const [product, setProduct] = useState([]);
   const [search, setSearch] = useState("");
+  const debouncedSearch = useDebounce(search, 0.3);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -35,18 +37,17 @@ const Home = () => {
     }
   };
 
-  const handleSearch = () => {
-    try {
-      const searchResult = product.filter((item) => item.name === search);
-      if (searchResult.length === 0) {
-        window.location.reload();
-      } else {
-        setProduct(searchResult);
-      }
-    } catch (e) {
-      console.log(e);
+  const defineList = (filter) => {
+    if (filter) {
+      const searchResult = product.filter((item) =>
+        item.name.toLowerCase().includes(filter)
+      );
+      return searchResult.length > 0 ? searchResult : ["Data tidak ditemukan!"];
     }
+    return product;
   };
+
+  const list = defineList(debouncedSearch);
 
   return (
     <div className="main">
@@ -59,7 +60,6 @@ const Home = () => {
           placeholder="Masukan kata kunci..."
           onChange={(e) => setSearch(e.target.value)}
           value={search}
-          onKeyPress={(e) => e.key === "Enter" && handleSearch()}
         />
       </div>
       <table className="table">
@@ -72,36 +72,44 @@ const Home = () => {
           </tr>
         </thead>
         <tbody>
-          {product.map((item, index) => {
-            return (
-              <tr key={item._id}>
-                <td>{index + 1}</td>
-                <td>{item.name}</td>
-                <td className="text-right">{item.price}</td>
-                <td className="text-center">
-                  <Link
-                    to={`/detail/${item._id}`}
-                    className="btn btn-sm btn-info"
-                  >
-                    Detail
-                  </Link>
-                  <Link
-                    to={`/edit/${item._id}`}
-                    className="btn btn-sm btn-warning"
-                  >
-                    Edit
-                  </Link>
-                  <Link
-                    onClick={() => deleteProduct(item._id)}
-                    to="/"
-                    className="btn btn-sm btn-danger"
-                  >
-                    Delete
-                  </Link>
-                </td>
-              </tr>
-            );
-          })}
+          {list.includes("Data tidak ditemukan!")
+            ? list.map((item, index) => {
+                return (
+                  <div style={{ textAlign: "center" }} key={index}>
+                    {item}
+                  </div>
+                );
+              })
+            : list?.map((item, index) => {
+                return (
+                  <tr key={item._id}>
+                    <td>{index + 1}</td>
+                    <td>{item.name}</td>
+                    <td className="text-right">{item.price}</td>
+                    <td className="text-center">
+                      <Link
+                        to={`/detail/${item._id}`}
+                        className="btn btn-sm btn-info"
+                      >
+                        Detail
+                      </Link>
+                      <Link
+                        to={`/edit/${item._id}`}
+                        className="btn btn-sm btn-warning"
+                      >
+                        Edit
+                      </Link>
+                      <Link
+                        onClick={() => deleteProduct(item._id)}
+                        to="/"
+                        className="btn btn-sm btn-danger"
+                      >
+                        Delete
+                      </Link>
+                    </td>
+                  </tr>
+                );
+              })}
         </tbody>
       </table>
     </div>
